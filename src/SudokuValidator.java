@@ -29,4 +29,21 @@ public class SudokuValidator {
         return true;
     }
 
+    public static boolean isBlockValid(SudokuBoard board, int startRow, int startCol) {   // Change public back to private after testing
+        boolean[] seen = new boolean[size + 1];
+        // check for 3x3 block
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                int num = board.getCell(startRow + row, startCol + col);
+                if (num != 0) {
+                    if (seen[num]) {
+                        return false;
+                    }
+                    seen[num] = true;
+                }
+            }
+        }
+        return true;
+    }
+
 }
