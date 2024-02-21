@@ -72,33 +72,6 @@ public class Main {
         unsolvedBoard.printBoard();
         System.out.println();
 
-        /*
-        System.out.println("Row check:");
-        for (int row = 0; row < SudokuBoard.size; row++) {
-            boolean isRowValid = SudokuValidator.isRowValid(board, row);
-            System.out.println("Row " + (row + 1) + " is " + (isRowValid ? "valid" : "invalid"));
-        }
-        System.out.println();
-
-        System.out.println("Column check:");
-        for (int col = 0; col < SudokuBoard.size; col++) {
-            boolean isColValid = SudokuValidator.isColumnValid(board, col);
-            System.out.println("Column " + (col + 1) + " is " + (isColValid ? "valid" : "invalid"));
-        }
-        System.out.println();
-
-        System.out.println("3x3 block check:");
-        for (int row = 0; row < SudokuBoard.size; row += 3) {
-            for (int column = 0; column < SudokuBoard.size; column += 3) {
-                boolean isBoxValid = SudokuValidator.isBlockValid(board, row, column);
-                System.out.println("Box starting at (" + row + "," + column + ") is "
-                        + (isBoxValid ? "valid" : "invalid"));
-            }
-        }
-        System.out.println();
-
-         */
-
         boolean isValid = SudokuValidator.isValidSudoku(board);
         System.out.println("The board is " + (isValid ? "valid" : "invalid"));
         System.out.println();
