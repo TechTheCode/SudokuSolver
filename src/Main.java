@@ -3,7 +3,7 @@ public class Main {
         SudokuBoard board = new SudokuBoard();
 
         /*
-        // Testing SudokuBoard class
+        // Testing SudokuBoard
 
         // Print the empty board
         System.out.println("Empty Board:");
@@ -68,5 +68,8 @@ public class Main {
             }
         }
         System.out.println();
+
+        boolean isValid = SudokuValidator.isValidSudoku(board);
+        System.out.println("The board is " + (isValid ? "valid" : "invalid"));
     }
 }

@@ -46,4 +46,14 @@ public class SudokuValidator {
         return true;
     }
 
+    public static boolean isValidSudoku(SudokuBoard board) {
+        for (int i = 0; i < size; i++) {
+            if (!isRowValid(board, i) || !isColumnValid(board, i)
+                    || !isBlockValid(board, i - i % 3, i - i % 3)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
