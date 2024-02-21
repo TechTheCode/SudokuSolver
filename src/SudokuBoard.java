@@ -1,7 +1,5 @@
 public class SudokuBoard {
-    //public static final int size = 9;
-    //Test Size
-    public static final int size = 3;
+    public static final int size = 9;
     private int[][] board;
 
     public SudokuBoard(){
