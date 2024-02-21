@@ -1,4 +1,5 @@
 public class SudokuBoard {
+
     public static final int size = 9;
     private int[][] board;
 

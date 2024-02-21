@@ -1,6 +1,10 @@
 public class Main {
     public static void main(String[] args) {
         SudokuBoard board = new SudokuBoard();
+        SudokuGenerator generator = new SudokuGenerator();
+        SudokuBoard randomBoard = generator.getSudokuBoard();
+        SudokuBoard unsolvedBoard = new SudokuBoard();
+        SudokuSolver solve = new SudokuSolver(unsolvedBoard);
 
         /*
         // Testing SudokuBoard
@@ -34,6 +38,19 @@ public class Main {
                 {2, 5, 1, 8, 9, 7, 3, 4, 6}
         };
 
+        int[][] unsolvedValues ={
+                {1, 0, 0, 0, 2, 0, 3, 0, 4},
+                {0, 4, 0, 5, 6, 0, 7, 8, 0},
+                {0, 9, 0, 0, 8, 0, 0, 0, 2},
+                {0, 0, 3, 0, 0, 8, 0, 0, 7},
+                {0, 0, 7, 0, 0, 0, 6, 0, 0},
+                {8, 0, 0, 2, 0, 0, 9, 0, 0},
+                {6, 0, 0, 0, 1, 0, 0, 3, 0},
+                {0, 5, 8, 0, 9, 3, 0, 7, 0},
+                {2, 0, 1, 0, 4, 0, 0, 0, 6}
+        };
+
+
         // Set board to predefined values
         for (int row = 0; row < SudokuBoard.size; row++) {
             for (int column = 0; column < SudokuBoard.size; column++) {
@@ -41,10 +58,21 @@ public class Main {
             }
         }
 
+        for (int row = 0; row < SudokuBoard.size; row++) {
+            for (int column = 0; column < SudokuBoard.size; column++) {
+                unsolvedBoard.setCell(row, column, unsolvedValues[row][column]);
+            }
+        }
+
         System.out.println("Board with predefined values:");
         board.printBoard();
         System.out.println();
 
+        System.out.println("Board with unsolved values:");
+        unsolvedBoard.printBoard();
+        System.out.println();
+
+        /*
         System.out.println("Row check:");
         for (int row = 0; row < SudokuBoard.size; row++) {
             boolean isRowValid = SudokuValidator.isRowValid(board, row);
@@ -69,7 +97,28 @@ public class Main {
         }
         System.out.println();
 
+         */
+
         boolean isValid = SudokuValidator.isValidSudoku(board);
         System.out.println("The board is " + (isValid ? "valid" : "invalid"));
+        System.out.println();
+
+        System.out.println("Random board generation:");
+        randomBoard.printBoard();
+        System.out.println();
+
+        boolean isRandomValid = SudokuValidator.isValidSudoku(randomBoard);
+        System.out.println("The random board is " + (isRandomValid ? "valid" : "invalid"));
+        System.out.println();
+
+        if (!solve.sudokuSolve(0, 0)) {
+            throw new RuntimeException("Failed to generate a sudoku board");
+        }
+        unsolvedBoard.printBoard();
+        System.out.println();
+
+        boolean isUnsolvedValid = SudokuValidator.isValidSudoku(unsolvedBoard);
+        System.out.println("The board is " + (isUnsolvedValid ? "valid" : "invalid"));
+        System.out.println();
     }
 }
