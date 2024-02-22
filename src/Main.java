@@ -83,11 +83,11 @@ public class Main {
 
         solveUnsolved.sudokuSolve(0, 0);
         if (solveUnsolved.getSolutionCount() == 1) {
-            System.out.println("The puzzle has a unique solution.");
+            System.out.println("The board has a unique solution.");
         } else if (solveUnsolved.getSolutionCount() > 1) {
-            System.out.println("The puzzle has multiple solutions.");
+            System.out.println("The board has multiple solutions.");
         } else {
-            System.out.println("The puzzle has no solutions.");
+            System.out.println("The board has no solutions.");
         }
         unsolvedBoard.printBoard();
         System.out.println();
