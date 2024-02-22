@@ -1,3 +1,14 @@
+Sudoku Project
+Your task is to implement a Java project with the functionality listed below.
+You should use concurrency where possible to improve the performance of your application,
+making sure to apply best practices and to use appropriate design patterns throughout.
+
+1.	Generate an unsolved Sudoku puzzle.
+2.	Check whether a certain number could go in a certain cell of an unsolved Sudoku puzzle.
+3.	Validate an entire solved sudoku puzzle (i.e. return true if the sudoku is valid, or false otherwise)
+4.	Take an unsolved sudoku puzzle, and return its solution.
+5.	Support multiple threads requesting a new puzzle or the solution to an existing puzzle, simultaneously.
+
 Sudoku Rules:
 https://sudoku.com/sudoku-rules/
 -Sudoku grid consists of 9x9 spaces.

@@ -1,13 +1,14 @@
 import java.util.Random;
 
 public class SudokuGenerator {
-    private final SudokuBoard sudokuBoard;
+    private SudokuBoard sudokuBoard;
+    private Random random;
     private static final int size = SudokuBoard.size;
     RandomGenerator rng = new RandomGenerator();
 
     public SudokuGenerator() {
         this.sudokuBoard = new SudokuBoard();
-        Random random = new Random();
+        this.random = new Random();
         fillDiagonalBlocks();
         if (!sudokuGenerate(0, 0)) {
             throw new RuntimeException("Failed to generate a sudoku board");
@@ -40,6 +41,7 @@ public class SudokuGenerator {
         }
         return false; // Trigger backtracking
     }
+
 
     private boolean isSafe(int row, int col, int num) {
         // Row check
