@@ -4,28 +4,9 @@ public class Main {
         SudokuGenerator generator = new SudokuGenerator();
         SudokuBoard randomBoard = generator.getSudokuBoard();
         SudokuBoard unsolvedBoard = new SudokuBoard();
-        SudokuSolver solve = new SudokuSolver(unsolvedBoard);
+        SudokuSolver solveUnsolved = new SudokuSolver(unsolvedBoard);
+        SudokuBoard solutionBoard = new SudokuBoard();
 
-        /*
-        // Testing SudokuBoard
-
-        // Print the empty board
-        System.out.println("Empty Board:");
-        board.printBoard();
-        System.out.println();
-
-        // Set some values in the board
-        board.setCell(0, 0, 5);
-        board.setCell(1, 1, 3);
-        board.setCell(2, 2, 1);
-
-        // Print the board with some values set
-        System.out.println("Board after setting some values:");
-        board.printBoard();
-        System.out.println();
-        */
-
-        // Testing SudokuValidator
         int[][] predefinedValues = {
                 {7, 2, 3, 4, 6, 1, 5, 8, 9},
                 {5, 1, 4, 9, 7, 8, 6, 3, 2},
@@ -38,20 +19,30 @@ public class Main {
                 {2, 5, 1, 8, 9, 7, 3, 4, 6}
         };
 
-        int[][] unsolvedValues ={
-                {1, 0, 0, 0, 2, 0, 3, 0, 4},
-                {0, 4, 0, 5, 6, 0, 7, 8, 0},
-                {0, 9, 0, 0, 8, 0, 0, 0, 2},
-                {0, 0, 3, 0, 0, 8, 0, 0, 7},
-                {0, 0, 7, 0, 0, 0, 6, 0, 0},
-                {8, 0, 0, 2, 0, 0, 9, 0, 0},
-                {6, 0, 0, 0, 1, 0, 0, 3, 0},
-                {0, 5, 8, 0, 9, 3, 0, 7, 0},
-                {2, 0, 1, 0, 4, 0, 0, 0, 6}
+        int[][] unsolvedValues = {
+                {0, 7, 5, 6, 4, 2, 0, 0, 3},
+                {2, 8, 3, 0, 0, 7, 4, 0, 0},
+                {0, 4, 9, 0, 1, 0, 0, 2, 7},
+                {3, 6, 0, 1, 8, 9, 7, 0, 0},
+                {5, 9, 0, 0, 0, 3, 1, 0, 0},
+                {0, 1, 7, 0, 6, 5, 0, 3, 2},
+                {0, 0, 8, 7, 3, 1, 0, 4, 5},
+                {0, 5, 0, 0, 0, 0, 0, 1, 9},
+                {0, 3, 1, 9, 0, 6, 0, 7, 0}
         };
 
+        int[][] solutionValues = {
+                {1, 7, 5, 6, 4, 2, 8, 9, 3},
+                {2, 8, 3, 5, 9, 7, 4, 6, 1},
+                {6, 4, 9, 3, 1, 8, 5, 2, 7},
+                {3, 6, 2, 1, 8, 9, 7, 5, 4},
+                {5, 9, 4, 2, 7, 3, 1, 8, 6},
+                {8, 1, 7, 4, 6, 5, 9, 3, 2},
+                {9, 2, 8, 7, 3, 1, 6, 4, 5},
+                {7, 5, 6, 8, 2, 4, 3, 1, 9},
+                {4, 3, 1, 9, 5, 6, 2, 7, 1}
+        };
 
-        // Set board to predefined values
         for (int row = 0; row < SudokuBoard.size; row++) {
             for (int column = 0; column < SudokuBoard.size; column++) {
                 board.setCell(row, column, predefinedValues[row][column]);
@@ -61,6 +52,12 @@ public class Main {
         for (int row = 0; row < SudokuBoard.size; row++) {
             for (int column = 0; column < SudokuBoard.size; column++) {
                 unsolvedBoard.setCell(row, column, unsolvedValues[row][column]);
+            }
+        }
+
+        for (int row = 0; row < SudokuBoard.size; row++) {
+            for (int column = 0; column < SudokuBoard.size; column++) {
+                solutionBoard.setCell(row, column, solutionValues[row][column]);
             }
         }
 
@@ -84,14 +81,23 @@ public class Main {
         System.out.println("The random board is " + (isRandomValid ? "valid" : "invalid"));
         System.out.println();
 
-        if (!solve.sudokuSolve(0, 0)) {
+        if (!solveUnsolved.sudokuSolve(0, 0)) {
             throw new RuntimeException("Failed to generate a sudoku board");
         }
         unsolvedBoard.printBoard();
         System.out.println();
 
         boolean isUnsolvedValid = SudokuValidator.isValidSudoku(unsolvedBoard);
-        System.out.println("The board is " + (isUnsolvedValid ? "valid" : "invalid"));
+        System.out.println("The unsolved board is " + (isUnsolvedValid ? "valid" : "invalid"));
         System.out.println();
+
+        boolean isSolutionValid = SudokuValidator.isValidSudoku(solutionBoard);
+        System.out.println("The solution board is " + (isSolutionValid ? "valid" : "invalid"));
+        System.out.println();
+
+        String result = solutionBoard.equals(unsolvedBoard) ? "The solution matches solver"
+                : "Solution does not match the sovler";
+        System.out.println(result);
+
     }
 }

@@ -32,4 +32,23 @@ public class SudokuBoard {
         this.board = board;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        SudokuBoard other = (SudokuBoard) obj;
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                if (this.getCell(row, col) != other.getCell(row, col)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }

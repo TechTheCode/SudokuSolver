@@ -54,10 +54,11 @@ public class SudokuValidator {
                     return false;
                 }
             }
-            if (!isRowValid(board, i) && !isColumnValid(board, i)
-                    && !isBlockValid(board, i - i % 3, i - i % 3)) {
+            if (!isRowValid(board, i) || !isColumnValid(board, i)
+                    || !isBlockValid(board, i - i % 3, i - i % 3)) {
                 return false;
             }
+
         }
         return true;
     }
