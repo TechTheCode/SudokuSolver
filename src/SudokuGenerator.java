@@ -42,7 +42,6 @@ public class SudokuGenerator {
         return false; // Trigger backtracking
     }
 
-
     private boolean isSafe(int row, int col, int num) {
         // Row check
         sudokuBoard.setCell(row, col, num);

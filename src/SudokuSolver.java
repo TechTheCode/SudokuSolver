@@ -8,34 +8,54 @@ public class SudokuSolver {
         this.sudokuBoard = board;
     }
 
-    boolean sudokuSolve(int row, int col) {
-        if (solutionFound) { // Check if a solution is already found
-            return false;
-        }
-
+    boolean isUnique(int row, int col) {
         if (col == size) {
             col = 0;
             row++;
             if (row == size) {
                 solutionCount++; // Increment solution count
-                solutionFound = true; // Indicate that a solution is found
-                return true; // Continue solving if less than two solutions found
+                return solutionCount < 2; // Continue solving if less than two solutions found
             }
         }
 
         if (sudokuBoard.getCell(row, col) != 0) {
-            return sudokuSolve(row, col + 1);
+            return isUnique(row, col + 1);
         }
 
         for (int num = 1; num <= size; num++) {
             if (isSafe(row, col, num)) {
                 sudokuBoard.setCell(row, col, num);
+                if (isUnique(row, col + 1) && solutionCount > 1) {
+                    return false; // More than one solution found, stop solving
+                }
+                sudokuBoard.setCell(row, col, 0); // Reset cell for backtracking
+            }
+        }
+        return false; // Trigger backtracking
+    }
+
+    boolean sudokuSolve(int row, int col) {
+        if (col == size) {
+            col = 0;
+            row++;
+
+            if (row == size) {
+                return true; // Sudoku solved
+            }
+        }
+
+        // Skip filled cells
+        if (sudokuBoard.getCell(row, col) != 0) {
+            return sudokuSolve(row, col + 1);
+        }
+
+        for (int num = 1; num <= 9; num++) {
+            if (isSafe(row, col, num)) {
+                sudokuBoard.setCell(row, col, num);
                 if (sudokuSolve(row, col + 1)) {
-                    return true; // A solution has been found and the board is filled
+                    return true;
                 }
-                if (!solutionFound) {
-                    sudokuBoard.setCell(row, col, 0); // Reset cell for backtracking only if no solution found
-                }
+                sudokuBoard.setCell(row, col, 0); // Reset cell for backtracking
             }
         }
         return false; // Trigger backtracking
