@@ -1,7 +1,7 @@
 public class SudokuSolver {
     private SudokuBoard sudokuBoard;
     private static final int size = SudokuBoard.size;
-    RandomGenerator rng = new RandomGenerator();
+    private int solutionCount = 0;
 
     public SudokuSolver(SudokuBoard board) {
         this.sudokuBoard = board;
@@ -11,29 +11,27 @@ public class SudokuSolver {
         if (col == size) {
             col = 0;
             row++;
-
             if (row == size) {
-                return true; // Sudoku solved
+                solutionCount++; // Increment solution count
+                return solutionCount < 2; // Continue solving if less than two solutions found
             }
         }
 
-        // Skip filled cells
         if (sudokuBoard.getCell(row, col) != 0) {
             return sudokuSolve(row, col + 1);
         }
 
-        for (int num = 1; num <= 9; num++) {
+        for (int num = 1; num <= size; num++) {
             if (isSafe(row, col, num)) {
                 sudokuBoard.setCell(row, col, num);
-                if (sudokuSolve(row, col + 1)) {
-                    return true;
+                if (!sudokuSolve(row, col + 1) && solutionCount > 1) {
+                    return false; // If more than one solution, stop solving
                 }
                 sudokuBoard.setCell(row, col, 0); // Reset cell for backtracking
             }
         }
         return false; // Trigger backtracking
     }
-
 
     private boolean isSafe(int row, int col, int num) {
         // Row check
@@ -45,4 +43,7 @@ public class SudokuSolver {
         return safe;
     }
 
+    public int getSolutionCount() {
+        return solutionCount;
+    }
 }

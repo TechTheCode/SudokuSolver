@@ -58,7 +58,6 @@ public class SudokuValidator {
                     || !isBlockValid(board, i - i % 3, i - i % 3)) {
                 return false;
             }
-
         }
         return true;
     }

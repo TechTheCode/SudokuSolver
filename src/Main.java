@@ -20,27 +20,27 @@ public class Main {
         };
 
         int[][] unsolvedValues = {
-                {0, 7, 5, 6, 4, 2, 0, 0, 3},
-                {2, 8, 3, 0, 0, 7, 4, 0, 0},
-                {0, 4, 9, 0, 1, 0, 0, 2, 7},
-                {3, 6, 0, 1, 8, 9, 7, 0, 0},
-                {5, 9, 0, 0, 0, 3, 1, 0, 0},
-                {0, 1, 7, 0, 6, 5, 0, 3, 2},
-                {0, 0, 8, 7, 3, 1, 0, 4, 5},
-                {0, 5, 0, 0, 0, 0, 0, 1, 9},
-                {0, 3, 1, 9, 0, 6, 0, 7, 0}
+                {0, 3, 9, 0, 0, 0, 1, 2, 0},
+                {0, 0, 0, 9, 0, 7, 0, 0, 0},
+                {8, 0, 0, 4, 0, 1, 0, 0, 6},
+                {0, 4, 2, 0, 0, 0, 7, 9, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 9, 1, 0, 0, 0, 5, 4, 0},
+                {5, 0, 0, 1, 0, 9, 0, 0, 3},
+                {0, 0, 0, 8, 0, 5, 0, 0, 0},
+                {0, 1, 4, 0, 0, 0, 8, 7, 0}
         };
 
         int[][] solutionValues = {
-                {1, 7, 5, 6, 4, 2, 8, 9, 3},
-                {2, 8, 3, 5, 9, 7, 4, 6, 1},
-                {6, 4, 9, 3, 1, 8, 5, 2, 7},
-                {3, 6, 2, 1, 8, 9, 7, 5, 4},
-                {5, 9, 4, 2, 7, 3, 1, 8, 6},
-                {8, 1, 7, 4, 6, 5, 9, 3, 2},
-                {9, 2, 8, 7, 3, 1, 6, 4, 5},
-                {7, 5, 6, 8, 2, 4, 3, 1, 9},
-                {4, 3, 1, 9, 5, 6, 2, 7, 1}
+                {4, 3, 9, 6, 5, 8, 1, 2, 7},
+                {1, 5, 6, 9, 2, 7, 3, 8, 4},
+                {8, 2, 7, 4, 3, 1, 9, 5, 6},
+                {6, 4, 2, 5, 1, 3, 7, 9, 8},
+                {7, 8, 5, 2, 9, 4, 6, 3, 1},
+                {3, 9, 1, 7, 8, 6, 5, 4, 2},
+                {5, 7, 8, 1, 4, 9, 2, 6, 3},
+                {2, 6, 3, 8, 7, 5, 4, 1, 9},
+                {9, 1, 4, 3, 6, 2, 8, 7, 5}
         };
 
         for (int row = 0; row < SudokuBoard.size; row++) {
@@ -81,9 +81,16 @@ public class Main {
         System.out.println("The random board is " + (isRandomValid ? "valid" : "invalid"));
         System.out.println();
 
-        if (!solveUnsolved.sudokuSolve(0, 0)) {
-            throw new RuntimeException("Failed to generate a sudoku board");
+        solveUnsolved.sudokuSolve(0, 0);
+        if (solveUnsolved.getSolutionCount() == 1) {
+            System.out.println("The puzzle has a unique solution.");
+        } else if (solveUnsolved.getSolutionCount() > 1) {
+            System.out.println("The puzzle has multiple solutions.");
+        } else {
+            System.out.println("The puzzle has no solutions.");
         }
+
+        System.out.println();
         unsolvedBoard.printBoard();
         System.out.println();
 
@@ -96,7 +103,7 @@ public class Main {
         System.out.println();
 
         String result = solutionBoard.equals(unsolvedBoard) ? "The solution matches solver"
-                : "Solution does not match the sovler";
+                : "Solution does not match the solver";
         System.out.println(result);
 
     }
