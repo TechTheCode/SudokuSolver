@@ -2,7 +2,6 @@ public class SudokuSolver {
     private SudokuBoard sudokuBoard;
     private static final int size = SudokuBoard.size;
     private int solutionCount = 0;
-    private boolean solutionFound = false;
 
     public SudokuSolver(SudokuBoard board) {
         this.sudokuBoard = board;

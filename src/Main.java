@@ -69,16 +69,8 @@ public class Main {
         unsolvedBoard.printBoard();
         System.out.println();
 
-        boolean isValid = SudokuValidator.isValidSudoku(board);
-        System.out.println("The board is " + (isValid ? "valid" : "invalid"));
-        System.out.println();
-
         System.out.println("Random board generation:");
         randomBoard.printBoard();
-        System.out.println();
-
-        boolean isRandomValid = SudokuValidator.isValidSudoku(randomBoard);
-        System.out.println("The random board is " + (isRandomValid ? "valid" : "invalid"));
         System.out.println();
 
         solveUnsolved.isUnique(0, 0);
@@ -91,6 +83,14 @@ public class Main {
             System.out.println("The board has no solutions.");
         }
         unsolvedBoard.printBoard();
+        System.out.println();
+
+        boolean isValid = SudokuValidator.isValidSudoku(board);
+        System.out.println("The board is " + (isValid ? "valid" : "invalid"));
+        System.out.println();
+
+        boolean isRandomValid = SudokuValidator.isValidSudoku(randomBoard);
+        System.out.println("The random board is " + (isRandomValid ? "valid" : "invalid"));
         System.out.println();
 
         boolean isUnsolvedValid = SudokuValidator.isValidSudoku(unsolvedBoard);

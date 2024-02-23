@@ -7,8 +7,8 @@ import java.util.concurrent.Future;
 public class SudokuValidator {
     private static final int size = SudokuBoard.size;
 
-    static boolean isRowValid(SudokuBoard board, int row) {    // Change public back to private after testing
-        System.out.println("Validating row " + row + " in thread " + Thread.currentThread().getName());
+    static boolean isRowValid(SudokuBoard board, int row) {
+        //System.out.println("Validating row " + row + " in thread " + Thread.currentThread().getName());
         boolean[] seen = new boolean[size + 1];
         for (int col = 0; col < size; col++) {
             int cell = board.getCell(row, col);
@@ -22,8 +22,8 @@ public class SudokuValidator {
         return true;
     }
 
-    static boolean isColumnValid(SudokuBoard board, int col) {   // Change public back to private after testing
-        System.out.println("Validating column " + col + " in thread " + Thread.currentThread().getName());
+    static boolean isColumnValid(SudokuBoard board, int col) {
+        //System.out.println("Validating column " + col + " in thread " + Thread.currentThread().getName());
         boolean[] seen = new boolean[size + 1];
         for (int row = 0; row < size; row++) {
             int num = board.getCell(row, col);
@@ -37,8 +37,8 @@ public class SudokuValidator {
         return true;
     }
 
-    static boolean isBlockValid(SudokuBoard board, int startRow, int startCol) {   // Change public back to private after testing
-        System.out.println("Validating block starting at (" + startRow + "," + startCol + ") in thread " + Thread.currentThread().getName());
+    static boolean isBlockValid(SudokuBoard board, int startRow, int startCol) {
+        //System.out.println("Validating block starting at (" + startRow + "," + startCol + ") in thread " + Thread.currentThread().getName());
         boolean[] seen = new boolean[size + 1];
         // check for 3x3 block
         for (int row = 0; row < 3; row++) {
@@ -74,7 +74,7 @@ public class SudokuValidator {
 
      */
     public static boolean isValidSudoku(SudokuBoard board) {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(size*3);
         List<Future<Boolean>> futures = new ArrayList<>();
 
         // Submit row, column, and block checks to the executor
