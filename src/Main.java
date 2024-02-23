@@ -1,9 +1,16 @@
 public class Main {
     public static void main(String[] args) {
         SudokuBoard board = new SudokuBoard();
+
         SudokuGenerator generator = new SudokuGenerator(30);
         SudokuBoard randomBoard = generator.getSudokuBoard();
         SudokuSolver solveRandom = new SudokuSolver(randomBoard);
+
+        SudokuGenerator generator2 = new SudokuGenerator(30);
+        SudokuGenerator generator3 = new SudokuGenerator(30);
+        SudokuGenerator generator4 = new SudokuGenerator(30);
+        SudokuGenerator generator5 = new SudokuGenerator(30);
+
         SudokuBoard unsolvedBoard = new SudokuBoard();
         SudokuSolver solveUnsolved = new SudokuSolver(unsolvedBoard);
         SudokuBoard solutionBoard = new SudokuBoard();
@@ -62,6 +69,7 @@ public class Main {
             }
         }
 
+        System.out.println(); // Use when using logging on SudokuGenerator
         System.out.println("Board with predefined values:");
         board.printBoard();
         System.out.println();

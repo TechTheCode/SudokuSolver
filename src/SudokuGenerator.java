@@ -3,12 +3,13 @@ import java.util.Random;
 public class SudokuGenerator {
     private SudokuBoard sudokuBoard;
     private static final int size = SudokuBoard.size; // size of the Sudoku board
-    private int sqrtSize; // square root of size
-    private int remove; // number of digits to remove
-    private Random random; // random number generator
-    private SudokuSolver solver;
+    private final int sqrtSize; // square root of size
+    private final int remove; // number of digits to remove
+    private final Random random; // random number generator
+    private final SudokuSolver solver;
 
     // Constructor
+
     public SudokuGenerator(int remove) {
         this.sqrtSize = (int) Math.sqrt(size);
         this.remove = remove;
@@ -17,7 +18,7 @@ public class SudokuGenerator {
         this.solver = new SudokuSolver(this.sudokuBoard);
         generateSudoku();
     }
-
+    /*
     // Generate Sudoku board
     private void generateSudoku() {
         fillDiagonal();
@@ -26,9 +27,30 @@ public class SudokuGenerator {
         }
         removeDigits();
     }
+     */
+    private void generateSudoku() {
+        fillDiagonal();
+        Thread thread = new Thread(() -> {
+            log("Solving Sudoku puzzle in a separate thread");
+            if (!solver.sudokuSolve(0, 0)) {
+                throw new RuntimeException("Failed to generate a sudoku board");
+            }
+            log("Sudoku puzzle solved");
+        });
+        log("Starting solving thread");
+        thread.start();
+        removeDigits();
+        try {
+            thread.join(); // Wait for the solving thread to finish
+            System.out.println("Solving thread joined");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Fill diagonal blocks with unique numbers
     private void fillDiagonal() {
+        log("Filling diagonal blocks");
         for (int i = 0; i < size; i += sqrtSize) {
             fillBlock(i, i);
         }
@@ -49,7 +71,8 @@ public class SudokuGenerator {
 
     // Check if it's safe to place a number at given position
     private boolean isSafe(int row, int col, int num) {
-        return !usedInRow(row, num) && !usedInColumn(col, num) && !usedInBox(row - row % sqrtSize, col - col % sqrtSize, num);
+        return !usedInRow(row, num) && !usedInColumn(col, num) && !usedInBox(row
+                - row % sqrtSize, col - col % sqrtSize, num);
     }
 
     // Check if the number is already used in the row
@@ -86,6 +109,7 @@ public class SudokuGenerator {
 
     // Remove digits to make a puzzle
     private void removeDigits() {
+        log("Removing digits");
         int count = remove;
         while (count != 0) {
             int cellId = random.nextInt(size * size);
@@ -100,5 +124,9 @@ public class SudokuGenerator {
 
     public SudokuBoard getSudokuBoard() {
         return sudokuBoard;
+    }
+
+    private void log(String message) {
+        System.out.println(message + " using thread: " + Thread.currentThread().getName());
     }
 }
