@@ -3,6 +3,7 @@ public class Main {
         SudokuBoard board = new SudokuBoard();
         SudokuGenerator generator = new SudokuGenerator();
         SudokuBoard randomBoard = generator.getSudokuBoard();
+        SudokuSolver solveRandom = new SudokuSolver(randomBoard);
         SudokuBoard unsolvedBoard = new SudokuBoard();
         SudokuSolver solveUnsolved = new SudokuSolver(unsolvedBoard);
         SudokuBoard solutionBoard = new SudokuBoard();
@@ -73,6 +74,7 @@ public class Main {
         randomBoard.printBoard();
         System.out.println();
 
+        System.out.println("Solving unsolved values:");
         solveUnsolved.isUnique(0, 0);
         if (solveUnsolved.getSolutionCount() == 1) {
             System.out.println("The board has a unique solution");
@@ -106,5 +108,21 @@ public class Main {
         System.out.println(result);
         System.out.println();
 
+        System.out.println("Solving random values:");
+        solveRandom.isUnique(0, 0);
+        if (solveRandom.getSolutionCount() == 1) {
+            System.out.println("The board has a unique solution");
+            solveRandom.sudokuSolve(0, 0);
+        } else if (solveRandom.getSolutionCount() > 1) {
+            System.out.println("The board has multiple solutions");
+        } else {
+            System.out.println("The board has no solutions");
+        }
+        randomBoard.printBoard();
+        System.out.println();
+
+        boolean isRandomValidAgain = SudokuValidator.isValidSudoku(randomBoard);
+        System.out.println("The random board is " + (isRandomValidAgain ? "valid" : "invalid"));
+        System.out.println();
     }
 }

@@ -5,15 +5,35 @@ public class SudokuGenerator {
     private Random random;
     private static final int size = SudokuBoard.size;
     RandomGenerator rng = new RandomGenerator();
+    private static final int remove = 30;
+    private SudokuSolver solver;
 
     public SudokuGenerator() {
         this.sudokuBoard = new SudokuBoard();
         this.random = new Random();
-        SudokuSolver solver = new SudokuSolver(this.sudokuBoard);
+        this.solver = new SudokuSolver(this.sudokuBoard); // Initialize the solver here
         fillDiagonalBlocks();
         if (!solver.sudokuSolve(0, 0)) {
             throw new RuntimeException("Failed to generate a sudoku board");
         }
+        while (!generateUniqueSudoku()) {
+            this.sudokuBoard.resetBoard(); // Reset board if not unique
+            fillDiagonalBlocks();
+            solver.sudokuSolve(0, 0);
+        }
+    }
+
+    private boolean generateUniqueSudoku() {
+        for (int i = 0; i < remove; ) {
+            int row = random.nextInt(SudokuBoard.size);
+            int col = random.nextInt(SudokuBoard.size);
+            if (sudokuBoard.getCell(row, col) != 0) {
+                sudokuBoard.setCell(row, col, 0);
+                i++;
+            }
+        }
+        solver.setSolutionCount(0);
+        return solver.isUnique(0, 0) && solver.getSolutionCount() == 1;
     }
 
     private void fillDiagonalBlocks() {

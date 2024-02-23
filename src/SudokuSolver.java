@@ -13,7 +13,7 @@ public class SudokuSolver {
             row++;
             if (row == size) {
                 solutionCount++; // Increment solution count
-                return solutionCount < 2; // Continue solving if less than two solutions found
+                return solutionCount < 2; // Early exit if more than one solution found
             }
         }
 
@@ -24,13 +24,14 @@ public class SudokuSolver {
         for (int num = 1; num <= size; num++) {
             if (isSafe(row, col, num)) {
                 sudokuBoard.setCell(row, col, num);
-                if (isUnique(row, col + 1) && solutionCount > 1) {
-                    return false; // More than one solution found, stop solving
+                if (!isUnique(row, col + 1)) {
+                    return false; // Exit as soon as a second solution is found
                 }
                 sudokuBoard.setCell(row, col, 0); // Reset cell for backtracking
             }
         }
-        return false; // Trigger backtracking
+
+        return solutionCount < 2; // Return false if more than one solution is found
     }
 
     boolean sudokuSolve(int row, int col) {
@@ -72,6 +73,10 @@ public class SudokuSolver {
 
     public int getSolutionCount() {
         return solutionCount;
+    }
+
+    public void setSolutionCount(int number) {
+        solutionCount=number;
     }
 
 }

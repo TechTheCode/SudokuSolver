@@ -51,4 +51,6 @@ public class SudokuBoard {
         return true;
     }
 
+    public void resetBoard() {
+    }
 }
