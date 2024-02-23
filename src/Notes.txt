@@ -25,6 +25,17 @@ http://sudopedia.enjoysudoku.com/Invalid_Test_Cases.html
 
 https://www.quora.com/How-many-clues-does-a-Sudoku-puzzle-need-to-have-to-be-solvable
 
+Empty array
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0}
+
 Predefined solved 9x9 sudoku board:
 From https://www.sudokuweb.org/
 {7, 2, 3, 4, 6, 1, 5, 8, 9},

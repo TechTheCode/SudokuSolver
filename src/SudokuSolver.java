@@ -73,4 +73,5 @@ public class SudokuSolver {
     public int getSolutionCount() {
         return solutionCount;
     }
+
 }

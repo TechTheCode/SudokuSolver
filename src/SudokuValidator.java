@@ -38,7 +38,8 @@ public class SudokuValidator {
     }
 
     static boolean isBlockValid(SudokuBoard board, int startRow, int startCol) {
-        //System.out.println("Validating block starting at (" + startRow + "," + startCol + ") in thread " + Thread.currentThread().getName());
+        //System.out.println("Validating block starting at (" + startRow + ","
+        // + startCol + ") in thread " + Thread.currentThread().getName());
         boolean[] seen = new boolean[size + 1];
         // check for 3x3 block
         for (int row = 0; row < 3; row++) {
@@ -54,35 +55,27 @@ public class SudokuValidator {
         }
         return true;
     }
-    /*
+
     public static boolean isValidSudoku(SudokuBoard board) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (board.getCell(i, j) == 0) {
-                    // Return false if any cell is zero
-                    return false;
+        ExecutorService executor = Executors.newFixedThreadPool(size*3);// 9
+        List<Future<Boolean>> futures = new ArrayList<>();
+
+        // Check for zeros
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                if (board.getCell(row, col) == 0) {
+                    return false; // Sudoku is invalid if any cell is zero
                 }
             }
-            if (!isRowValid(board, i) || !isColumnValid(board, i)
-                    || !isBlockValid(board, i - i % 3, i - i % 3)) {
-                return false;
-            }
-
         }
-        return true;
-    }
-
-     */
-    public static boolean isValidSudoku(SudokuBoard board) {
-        ExecutorService executor = Executors.newFixedThreadPool(size*3);
-        List<Future<Boolean>> futures = new ArrayList<>();
 
         // Submit row, column, and block checks to the executor
         for (int i = 0; i < size; i++) {
             final int index = i;
             futures.add(executor.submit(() -> isRowValid(board, index)));
             futures.add(executor.submit(() -> isColumnValid(board, index)));
-            futures.add(executor.submit(() -> isBlockValid(board, index - index % 3, index - index % 3)));
+            futures.add(executor.submit(() -> isBlockValid(board, index
+                    - index % 3, index - index % 3)));
         }
 
         // Shutdown executor and wait for tasks to complete
