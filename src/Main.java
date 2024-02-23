@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         SudokuBoard board = new SudokuBoard();
-        SudokuGenerator generator = new SudokuGenerator();
+        SudokuGenerator generator = new SudokuGenerator(30);
         SudokuBoard randomBoard = generator.getSudokuBoard();
         SudokuSolver solveRandom = new SudokuSolver(randomBoard);
         SudokuBoard unsolvedBoard = new SudokuBoard();
