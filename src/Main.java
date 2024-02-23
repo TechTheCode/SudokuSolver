@@ -2,14 +2,23 @@ public class Main {
     public static void main(String[] args) {
         SudokuBoard board = new SudokuBoard();
 
+        //
         SudokuGenerator generator = new SudokuGenerator(30);
         SudokuBoard randomBoard = generator.getSudokuBoard();
         SudokuSolver solveRandom = new SudokuSolver(randomBoard);
 
         SudokuGenerator generator2 = new SudokuGenerator(30);
+        SudokuBoard randomBoard2 = generator2.getSudokuBoard();
+        SudokuSolver solveRandom2 = new SudokuSolver(randomBoard2);
+
         SudokuGenerator generator3 = new SudokuGenerator(30);
+        SudokuBoard randomBoard3 = generator3.getSudokuBoard();
+        SudokuSolver solveRandom3 = new SudokuSolver(randomBoard3);
+
         SudokuGenerator generator4 = new SudokuGenerator(30);
-        SudokuGenerator generator5 = new SudokuGenerator(30);
+        SudokuBoard randomBoard4 = generator4.getSudokuBoard();
+        SudokuSolver solveRandom4 = new SudokuSolver(randomBoard4);
+        //
 
         SudokuBoard unsolvedBoard = new SudokuBoard();
         SudokuSolver solveUnsolved = new SudokuSolver(unsolvedBoard);
@@ -116,6 +125,8 @@ public class Main {
         System.out.println(result);
         System.out.println();
 
+
+        //Test random board
         System.out.println("Solving random values:");
         solveRandom.isUnique(0, 0);
         if (solveRandom.getSolutionCount() == 1) {
@@ -131,6 +142,23 @@ public class Main {
 
         boolean isRandomValidAgain = SudokuValidator.isValidSudoku(randomBoard);
         System.out.println("The random board is " + (isRandomValidAgain ? "valid" : "invalid"));
+        System.out.println();
+
+        System.out.println("Solving random values:");
+        solveRandom2.isUnique(0, 0);
+        if (solveRandom2.getSolutionCount() == 1) {
+            System.out.println("The board has a unique solution");
+            solveRandom2.sudokuSolve(0, 0);
+        } else if (solveRandom2.getSolutionCount() > 1) {
+            System.out.println("The board has multiple solutions");
+        } else {
+            System.out.println("The board has no solutions");
+        }
+        randomBoard2.printBoard();
+        System.out.println();
+
+        boolean isRandomValidAgain2 = SudokuValidator.isValidSudoku(randomBoard2);
+        System.out.println("The random board 2 is " + (isRandomValidAgain2 ? "valid" : "invalid"));
         System.out.println();
     }
 }
